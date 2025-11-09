@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import assets, { userDummyData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
         <img
           src={assets.logo}
           alt="logo"
-          className="w-30 h-15 object-contain cursor-pointer"
+          className="w-28 h-14 object-contain cursor-pointer hover:opacity-80 transition"
           onClick={() => navigate("/")}
         />
 
@@ -50,20 +50,30 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
         />
       </div>
 
-      <div className="">
+      <div className="mt-5 flex flex-col gap-3 overflow-y-auto">
         {userDummyData.map((user, index) => (
-          <div>
+          <div
+            key={index}
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
+            onClick={() => setSelectedUser(user.fullName)}
+          >
             <img
               src={user?.profilePic || assets.avatar_icon}
-              alt=""
-              className=""
+              alt={user.fullName}
+              className="w-10 h-10 rounded-full object-cover border border-gray-200"
             />
-            <div>
-              <p>{user.fullName}</p>
+            <div className="flex flex-col">
+              <p className="text-sm font-medium text-gray-800">
+                {user.fullName}
+              </p>
               {index < 3 ? (
-                <span className="text-green-400 text-xs">Online</span>
+                <span className="text-green-500 text-xs font-medium">
+                  Online
+                </span>
               ) : (
-                <span className="text-neutral-400 text-xs">Offline</span>
+                <span className="text-gray-400 text-xs font-medium">
+                  Offline
+                </span>
               )}
             </div>
           </div>
