@@ -1,5 +1,5 @@
-import React from "react";
-import assets from "../assets/assets";
+import React, { use } from "react";
+import assets, { userDummyData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ selectedUser, setSelectedUser }) => {
@@ -22,7 +22,6 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
             className="w-6 h-6 cursor-pointer hover:opacity-80 transition"
           />
 
-          {/* Dropdown */}
           <div className="hidden group-hover:block absolute right-0 mt-2 w-36 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
             <p
               onClick={() => navigate("/profile")}
@@ -38,7 +37,6 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
         </div>
       </div>
 
-      {/* Search Bar */}
       <div className="flex items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-200 focus-within:ring-2 focus-within:ring-blue-400">
         <img
           src={assets.search_icon}
@@ -52,9 +50,27 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
         />
       </div>
 
-      {/* Users list (example placeholder) */}
+      <div className="">
+        {userDummyData.map((user, index) => (
+          <div>
+            <img
+              src={user?.profilePic || assets.avatar_icon}
+              alt=""
+              className=""
+            />
+            <div>
+              <p>{user.fullName}</p>
+              {index < 3 ? (
+                <span className="text-green-400 text-xs">Online</span>
+              ) : (
+                <span className="text-neutral-400 text-xs">Offline</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div className="mt-6 flex-1 overflow-y-auto space-y-2">
-        {/* Example of user item */}
         <div
           onClick={() => setSelectedUser("John Doe")}
           className={`p-3 rounded-lg cursor-pointer transition ${
